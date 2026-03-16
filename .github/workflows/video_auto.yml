@@ -3,12 +3,11 @@ name: Video Generation and Upload
 on:
   schedule:
       - cron: '0 12 * * *'
-        workflow_dispatch:
-
-        jobs:
-          generate_and_upload:
-              runs-on: ubuntu-latest
-                  steps:
+    workflow_dispatch:
+  jo:
+      generate_and_upload:
+          runs-on: ubuntu-latest
+              steps:
                         - name: Checkout repository
                                 uses: actions/checkout@v4
 
