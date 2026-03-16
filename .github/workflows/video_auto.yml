@@ -1,0 +1,30 @@
+name: Video Generation and Upload
+
+on:
+  schedule:
+      - cron: '0 12 * * *' # Every day at 12:00 UTC
+        workflow_dispatch:
+
+        jobs:
+          generate_and_upload:
+              runs-on: ubuntu-latest
+                  steps:
+                        - name: Checkout repository
+                                uses: actions/checkout@v4
+
+                                      - name: Set up Python
+                                              uses: actions/setup-python@v5
+                                                      with:
+                                                                python-version: '3.10'
+
+                                                                      - name: Install dependencies
+                                                                              run: |
+                                                                                        pip install google-generativeai requests google-auth-oauthlib google-auth-httplib2 google-api-python-client moviepy moviepy-pydub
+
+                                                                                              - name: Run video generation script
+                                                                                                      env:
+                                                                                                                GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+                                                                                                                          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+                                                                                                                                    YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+                                                                                                                                            run: python video_gen.py
+                                                                                                                                            
